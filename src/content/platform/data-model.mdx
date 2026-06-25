@@ -1,0 +1,61 @@
+# Object-Centric Data Model
+
+Unlike Ethereum (which uses an Account-based model) or Bitcoin (which uses UTXO), Brixs uses an incredibly powerful **Object-Centric** data model. This allows us to parallelize transactions automatically.
+
+## How it Works
+
+Every single asset, smart contract, and piece of data on Brixs is an isolated "Object" with a unique ID. 
+
+<FeatureGrid>
+  <FeatureCard 
+    icon="User" 
+    title="Owned Objects" 
+    description="Objects owned by a specific address (e.g., tokens, NFTs). Only the owner can mutate them, allowing parallel execution."
+  />
+  <FeatureCard 
+    icon="Users" 
+    title="Shared Objects" 
+    description="Objects accessible by anyone (e.g., AMMs). Requires consensus to mutate to prevent state conflicts."
+  />
+</FeatureGrid>
+
+### JSON Representation of an Object
+
+```json
+{
+  "objectId": "0x4f2a...881b",
+  "version": 42,
+  "owner": {
+    "AddressOwner": "0xabc...123"
+  },
+  "content": {
+    "balance": "1000000",
+    "metadata": "Brixs Native Token"
+  }
+}
+```
+
+## Parallel Execution via Objects
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+

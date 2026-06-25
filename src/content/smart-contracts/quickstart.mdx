@@ -1,0 +1,64 @@
+# Contract Quickstart
+
+Deploy your first smart contract to the Brixs Testnet! This guide covers writing, compiling, and deploying a basic Solidity contract to our enhanced EVM layer.
+
+## Step-by-Step Deployment
+
+### 1. Write the Contract
+
+Create a new file named `HelloWorld.sol`. This contract demonstrates basic state manipulation.
+
+```solidity
+pragma solidity ^0.8.19;
+
+contract HelloWorld {
+    string public message = "Hello, Brixs Network!";
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function updateMessage(string memory newMessage) public {
+        require(msg.sender == owner, "Only owner can update");
+        message = newMessage;
+    }
+}
+```
+
+### 2. Compile & Deploy
+
+Use the native `brx` CLI to compile and deploy in one seamless command.
+
+```bash
+brx smart-contract deploy ./HelloWorld.sol --network testnet --private-key $PRIVATE_KEY
+```
+
+<Callout type="success" title="Success!">
+You will receive a transaction hash and the deployed contract address in your terminal. You can view this on the Brixs Explorer.
+</Callout>
+
+## Interacting with the Contract
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+

@@ -1,0 +1,52 @@
+# Network Topology
+
+The Brixs Network utilizes a multi-tiered architecture to maximize performance, ensuring that consensus nodes are not bogged down by read requests from decentralized applications.
+
+## Node Roles Detailed
+
+<FeatureGrid>
+  <FeatureCard 
+    icon="Server" 
+    title="Validator Nodes" 
+    description="High-performance servers that participate in consensus. Require significant BRX staking."
+  />
+  <FeatureCard 
+    icon="Database" 
+    title="Full Nodes (RPC)" 
+    description="Serve client requests (wallets, dApps). Do not participate in consensus."
+  />
+  <FeatureCard 
+    icon="Archive" 
+    title="Archive Nodes" 
+    description="Store the complete historical state of the blockchain for deep querying."
+  />
+</FeatureGrid>
+
+<Callout type="info" title="Pro-Tip">
+If you are building a dApp, you should connect your RPC endpoints to a Full Node, NOT a Validator Node. Validator nodes are aggressively firewalled to protect consensus.
+</Callout>
+
+## Network Security Configurations
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+

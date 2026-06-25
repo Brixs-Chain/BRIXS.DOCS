@@ -1,0 +1,42 @@
+# Relayer Infrastructure
+
+If you want to earn fees by relaying cross-chain messages, you can run a Brixs Relayer node. Relayers are the decentralized actors that actually move proofs between chains.
+
+## Relayer Architecture
+
+Relayers monitor events on both Ethereum and Brixs, constructing Merkle proofs and submitting them across chains.
+
+<Callout type="warning" title="Important Note">
+Relayers must pay native gas fees on the destination chain to submit proofs. These gas costs are mathematically reimbursed by the user bridge fees, ensuring profitability.
+</Callout>
+
+## Starting a Relayer Daemon
+
+```bash
+brx-relayer start --eth-rpc $ETH_URL --brixs-rpc $BRIXS_URL --keys ./relayer-keys.json --profit-margin 0.05
+```
+
+## Profit Optimization
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+

@@ -1,0 +1,68 @@
+# Introduction to Brixs Platform
+
+<div className="grid lg:grid-cols-2 gap-16 items-center my-12">
+  <div className="max-w-xl">
+    <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-black leading-[1.1] mb-6">
+      The first fully <span className="text-blue-500">gas-sponsored</span> Layer 2.
+    </h1>
+    <p className="text-lg text-gray-600 leading-relaxed font-medium">
+      Brixs Chain abstracts away infrastructure complexity. An EVM-compatible Layer 2 Rollup built for emerging markets, featuring native Account Abstraction, Zero-Gas transactions, and the seamless Brixs Developer CLI.
+    </p>
+  </div>
+  <div className="relative">
+    <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 via-indigo-50 to-emerald-50 rounded-[40px] transform rotate-3 scale-105 -z-10 border border-gray-100" />
+    <StackVisualizer />
+  </div>
+</div>
+
+Welcome to the Brixs Network! Brixs is an ultra-high-speed, Zero-Gas Layer 2 Rollup settling on Ethereum. We are solving the gas barrier and fragmentation for the next billion users in emerging markets.
+
+<Callout type="success" title="Testnet Live">
+The Brixs sovereign node is currently live on our Testnet environment. Developers can begin deploying contracts locally. Mainnet deployment is scheduled for a later phase.
+</Callout>
+
+## Why Choose Brixs?
+
+<FeatureGrid>
+  <FeatureCard 
+    icon="Zap" 
+    title="Zero-Gas UX" 
+    description="Users log in with Email/Google via Account Abstraction. Our native Paymaster sponsors 100% of the gas."
+  />
+  <FeatureCard 
+    icon="Layers" 
+    title="Polygon Equivalence" 
+    description="Strict 1:1 infrastructure equivalence with Polygon, allowing seamless integration with AggLayer for unified liquidity."
+  />
+  <FeatureCard 
+    icon="Code2" 
+    title="EVM Compatibility" 
+    description="Deploy your existing Solidity contracts seamlessly without rewriting a single line of code."
+  />
+  <FeatureCard 
+    icon="ShieldCheck" 
+    title="Day-1 Developer Ecosystem" 
+    description="Launch your dApp instantly to a built-in community of 20,000+ Apna Coding developers using the Brixs CLI."
+  />
+</FeatureGrid>
+
+## Core Ecosystem Pillars
+
+### 1. The Sovereign Blockchain Node (Testnet)
+Our custom EVM node is built from the ground up to support our L2 architecture. It is currently configured to Chain ID `7777777` with the native gas token `BRIXS`.
+
+```bash
+# Connect your local environment to the Brixs Testnet
+const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+```
+
+### 2. The Zero-Gas Wallet (Account Abstraction)
+Through native EIP-4337 integration, the Brixs Wallet acts as a smart contract. When a user clicks "Swap", our custom RPC intercepts the transaction, and the Paymaster handles the gas fees transparently in the background.
+
+### 3. The Developer CLI
+We are building the ultimate command-line tool for developers. Deploying a smart contract will be as simple as a single command, instantly pushing your logic to the chain.
+
+```bash
+# Deploy instantly to the Testnet
+brixs deploy
+```

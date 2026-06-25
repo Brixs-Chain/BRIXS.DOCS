@@ -1,0 +1,41 @@
+# Supported Assets
+
+The following assets are natively supported by the official Brixs Bridge interface. These contracts have been fully audited by Top-Tier security firms.
+
+## Asset Registry
+
+| Asset | Type | Source Contract (ETH) | Wrapped Contract (Brixs) | Decimal |
+|---|---|---|---|---|
+| USDC | Stablecoin | `0xA0b86991c62...` | `0x123...abc` | 6 |
+| USDT | Stablecoin | `0xdAC17F958D2...` | `0x456...def` | 6 |
+| WETH | Wrapper | `0xC02aaA39b22...` | `0x789...ghi` | 18 |
+| DAI | Stablecoin | `0x6B175474E89...` | `0xabc...123` | 18 |
+
+<Callout type="info" title="Listing New Assets">
+To add a new asset to the bridge UI, submit a PR to the `brixs-bridge-assets` repository with the verified contract addresses.
+</Callout>
+
+## Bridging Protocol Validation
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+

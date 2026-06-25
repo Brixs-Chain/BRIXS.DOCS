@@ -1,0 +1,55 @@
+# Node Configuration
+
+Deploying a Brixs node via Docker Compose is the fastest and most reliable way to get started. It guarantees environment consistency across Linux distributions.
+
+## Deployment Guide
+
+### The `docker-compose.yml` File
+
+Create this file in your server's root directory. It maps ports for both JSON-RPC and internal P2P gossip.
+
+```yaml
+version: '3.8'
+services:
+  brixs-node:
+    image: brixs/node:v2.1.0
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # JSON-RPC HTTP
+      - "9000:9000" # P2P Gossip
+    volumes:
+      - ./brixs-data:/root/.brixs/data
+      - ./config.yaml:/root/.brixs/config.yaml
+```
+
+### Starting the Daemon
+
+```bash
+docker-compose up -d
+```
+You can monitor the sync status by checking the logs: `docker logs -f brixs-node`.
+
+## Performance Tuning
+
+
+### Phase 1: Engine Initialization
+The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+
+```bash
+# Initialize the Brixs node
+brixs deploy
+```
+
+### Phase 2: State Merklization
+Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+
+```javascript
+// Connect to the high-throughput RPC
+const provider = new BrixsProvider("http://localhost:8545");
+const block = await provider.getLatestBlock();
+console.log(`Current Block: ${block.number}`);
+```
+
+### Phase 3: Consensus & Finality
+Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+
