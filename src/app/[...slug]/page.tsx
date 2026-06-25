@@ -56,6 +56,7 @@ function getSidebarConfig(category: string) {
   if (category === 'platform') {
     return [
       { title: 'Introduction', href: '/platform/overview' },
+      { title: 'Status & Roadmap', href: '/platform/status-and-plan' },
       { 
         title: 'Architecture', 
         items: [

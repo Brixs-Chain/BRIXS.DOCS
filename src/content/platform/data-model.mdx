@@ -1,61 +1,51 @@
-# Object-Centric Data Model
+# Native EVM & Account Abstraction Data Model
 
-Unlike Ethereum (which uses an Account-based model) or Bitcoin (which uses UTXO), Brixs uses an incredibly powerful **Object-Centric** data model. This allows us to parallelize transactions automatically.
+Brixs uses the highly proven, globally adopted **Account-based** model intrinsic to the Ethereum Virtual Machine (EVM), augmented heavily by our native implementation of **EIP-4337 Account Abstraction**.
+
+<Callout type="success" title="Testnet Environment">
+Our EVM execution environment is currently deployed on the Testnet. Standard Solidity smart contracts and EVM dev tools (like Hardhat and Foundry) work out-of-the-box.
+</Callout>
 
 ## How it Works
 
-Every single asset, smart contract, and piece of data on Brixs is an isolated "Object" with a unique ID. 
+Unlike alternate L1s that require learning new execution architectures, Brixs embraces Ethereum's standard state trie while supercharging how accounts operate.
 
 <FeatureGrid>
   <FeatureCard 
     icon="User" 
-    title="Owned Objects" 
-    description="Objects owned by a specific address (e.g., tokens, NFTs). Only the owner can mutate them, allowing parallel execution."
+    title="Externally Owned Accounts (EOA)" 
+    description="Standard cryptographic keypairs (e.g. MetaMask). Fully supported for backward compatibility."
   />
   <FeatureCard 
     icon="Users" 
-    title="Shared Objects" 
-    description="Objects accessible by anyone (e.g., AMMs). Requires consensus to mutate to prevent state conflicts."
+    title="Smart Contract Accounts (SCA)" 
+    description="Accounts managed by code rather than private keys. Natively bundled into the protocol for zero-gas UX."
   />
 </FeatureGrid>
 
-### JSON Representation of an Object
+### Account Abstraction at the Protocol Level
+
+Brixs doesn't rely on third-party relayers for gasless transactions. We have built a custom JSON-RPC gateway that natively intercepts user Intents and routes them through our protocol-level Paymaster. 
 
 ```json
+// Example of an EIP-4337 UserOperation on Brixs
 {
-  "objectId": "0x4f2a...881b",
-  "version": 42,
-  "owner": {
-    "AddressOwner": "0xabc...123"
-  },
-  "content": {
-    "balance": "1000000",
-    "metadata": "Brixs Native Token"
-  }
+  "sender": "0xabc...123",
+  "nonce": "0x1",
+  "callData": "0x4f2a...881b",
+  "paymasterAndData": "0xPaymasterAddress...SponsorshipData",
+  "signature": "0x..."
 }
 ```
 
-## Parallel Execution via Objects
+## State Management
 
-
-### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
-
-```bash
-# Initialize the Brixs node
-brixs deploy
-```
-
-### Phase 2: State Merklization
-Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+### The EVM State Trie
+Raw blockchain data is ingested into our modified state Merkle tree. While it maintains 100% equivalence with Ethereum's data structures (enabling seamless contract deployments), it is heavily optimized for fast retrieval required by our ZK-Prover Engine.
 
 ```javascript
-// Connect to the high-throughput RPC
-const provider = new BrixsProvider("http://localhost:8545");
-const block = await provider.getLatestBlock();
-console.log(`Current Block: ${block.number}`);
+// Connect to the Testnet RPC and interact natively
+const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+const code = await provider.getCode("0xYourContractAddress");
+console.log(`Deployed Bytecode: ${code}`);
 ```
-
-### Phase 3: Consensus & Finality
-Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
-

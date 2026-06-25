@@ -1,0 +1,44 @@
+# Current Status & Roadmap
+
+The Brixs Network is an ambitious, world-class blockchain engineering effort. To maintain absolute transparency with our developer community and institutional partners, this page documents exactly where the protocol currently stands and the planned milestones leading to Mainnet.
+
+## Current Protocol Status: **Testnet Live**
+
+<Callout type="success" title="Only in Testnet">
+Brixs Chain is **currently operating exclusively in a Testnet environment**. All tokens (BRIXS), smart contracts, and state transitions are simulated for testing purposes and hold no real-world monetary value.
+</Callout>
+
+### What is Currently Live and Functional?
+The following core architectural pillars are currently active in our Testnet:
+1. **Native EVM Execution:** The custom `@ethereumjs/vm` gateway is processing transactions successfully.
+2. **Account Abstraction:** EIP-4337 is natively integrated. The Paymaster is sponsoring gas for Testnet interactions.
+3. **Decentralized Sequencer (DPoS):** The staking manager is live, allowing nodes to participate in block proposals.
+4. **Encrypted Mempool:** Basic encryption layers for front-running protection are currently being stress-tested.
+5. **JSON-RPC API:** The gateway is open for developers to query blocks and submit transactions locally or via the public Testnet URL.
+
+### What is Still in Development?
+The following features are deeply embedded in our architecture design (`FINAL_BRIXS_ARCHITECTURE.txt`) but are undergoing rigorous internal R&D before being fully unlocked in Testnet:
+1. **ZK-SNARK Prover Engine:** Proof generation circuits are being optimized for sub-second Finality on the L1.
+2. **Protocol-Level Autonomous AI Agents (`BrixsAIAgent.sol`):** The Intent Engine that parses user deposits to execute complex trading strategies is in the final audit phase.
+3. **Unified Liquidity Router:** Cross-chain state reads from Arbitrum and Polygon are currently running in an isolated devnet to ensure absolute security.
+4. **Post-Quantum Cryptography:** Lattice-based signature verifications are being benchmarked against standard secp256k1 for performance overhead.
+
+---
+
+## Roadmap to Mainnet
+
+### Phase 1: Testnet Hardening (Current)
+- Launching the Brixs Developer CLI to onboard the first cohort of developers.
+- Stress-testing the EVM execution environment to validate zero-downtime block production.
+- Auditing the native Account Abstraction Paymaster smart contracts.
+
+### Phase 2: Prover & Security Upgrades
+- Deploying the ZK-SNARK Prover Engine to the public Testnet.
+- Activating the Unified Liquidity Router to enable cross-chain bridging tests.
+- Bug bounty programs targeting the Encrypted Mempool and AI Agents.
+
+### Phase 3: Mainnet Genesis
+- Official launch of the Sovereign Chain ID.
+- Genesis allocation of the 10 Billion $BRIXS tokens.
+- Transition of the Decentralized Sequencer to a fully permissionless DPoS model.
+- Activation of Post-Quantum Cryptographic signatures for institutional-grade security.

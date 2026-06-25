@@ -20,12 +20,12 @@ const GithubIcon = ({ className }: { className?: string }) => (
 export default function TopNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const tabs = [
-    { name: "Platform", href: "/platform/overview" },
-    { name: "Wallets", href: "/wallets/overview" },
-    { name: "Smart Contracts", href: "/smart-contracts/overview" },
-    { name: "Cross-chain", href: "/cross-chain/overview" },
-    { name: "API Reference", href: "/api/overview" },
-    { name: "Infrastructure", href: "/infrastructure/overview" }
+    { name: "Platform", href: "https://docs.brixs.space/platform/overview" },
+    { name: "Wallets", href: "https://docs.brixs.space/wallets/overview" },
+    { name: "Smart Contracts", href: "https://docs.brixs.space/smart-contracts/overview" },
+    { name: "Cross-chain", href: "https://docs.brixs.space/cross-chain/overview" },
+    { name: "API Reference", href: "https://docs.brixs.space/api/overview" },
+    { name: "Infrastructure", href: "https://docs.brixs.space/infrastructure/overview" }
   ];
 
   return (

@@ -9,15 +9,19 @@ Brixs provides a robust, highly-available **JSON-RPC 2.0** API for interacting w
 <FeatureGrid>
   <FeatureCard 
     icon="Globe" 
-    title="Testnet" 
-    description="https://api.brixs.network/v1"
+    title="Local Development" 
+    description="http://localhost:8545"
   />
   <FeatureCard 
     icon="FlaskConical" 
-    title="Testnet" 
-    description="https://testnet.brixs.network/v1"
+    title="Public Testnet" 
+    description="https://testnet.brixs.space/v1"
   />
 </FeatureGrid>
+
+<Callout type="success" title="Current Status: Testnet">
+The Brixs network is currently running exclusively in a Testnet environment. The Mainnet RPC endpoints will be published closer to our official launch.
+</Callout>
 
 <Callout type="warning" title="Authentication">
 Public endpoints are rate-limited to 100 requests per IP per minute. For production usage, please request a dedicated API key from the developer portal.
@@ -25,25 +29,28 @@ Public endpoints are rate-limited to 100 requests per IP per minute. For product
 
 ## Connection Best Practices
 
-
-### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+### Phase 1: Local Setup
+To begin developing, we recommend starting a local Brixs node using our developer CLI. This will instantly spin up a custom JSON-RPC gateway mapped to port `8545`.
 
 ```bash
-# Initialize the Brixs node
+# Initialize the local Brixs node
 brixs deploy
 ```
 
-### Phase 2: State Merklization
-Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+### Phase 2: Connecting via Ethers.js
+Because Brixs uses a native EVM execution layer (`@ethereumjs/vm`), you can connect using standard Web3 libraries without any custom SDKs.
 
 ```javascript
-// Connect to the high-throughput RPC
-const provider = new BrixsProvider("http://localhost:8545");
-const block = await provider.getLatestBlock();
-console.log(`Current Block: ${block.number}`);
+// Connect to the Testnet or Local RPC
+const { ethers } = require("ethers");
+const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+
+async function checkStatus() {
+  const blockNumber = await provider.getBlockNumber();
+  console.log(`Connected to Brixs! Current Block: ${blockNumber}`);
+}
+checkStatus();
 ```
 
-### Phase 3: Consensus & Finality
-Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
-
+### Phase 3: Transaction Submission
+Once connected, you can sign and submit transactions exactly as you would on Ethereum. The transactions are picked up by our **Encrypted Mempool** and eventually proven by our ZK-SNARK Prover Engine.

@@ -27,37 +27,37 @@ The Brixs sovereign node is currently live on our Testnet environment. Developer
   <FeatureCard 
     icon="Zap" 
     title="Zero-Gas UX" 
-    description="Users log in with Email/Google via Account Abstraction. Our native Paymaster sponsors 100% of the gas."
+    description="Native EIP-4337 Account Abstraction. Users log in with Email/Google and the native Paymaster sponsors gas."
   />
   <FeatureCard 
-    icon="Layers" 
-    title="Polygon Equivalence" 
-    description="Strict 1:1 infrastructure equivalence with Polygon, allowing seamless integration with AggLayer for unified liquidity."
-  />
-  <FeatureCard 
-    icon="Code2" 
-    title="EVM Compatibility" 
-    description="Deploy your existing Solidity contracts seamlessly without rewriting a single line of code."
+    icon="Bot" 
+    title="Protocol-Level AI Agents" 
+    description="Native BrixsAIAgent contracts allow users to deploy autonomous agents for automated DeFi and payments."
   />
   <FeatureCard 
     icon="ShieldCheck" 
-    title="Day-1 Developer Ecosystem" 
-    description="Launch your dApp instantly to a built-in community of 20,000+ Apna Coding developers using the Brixs CLI."
+    title="Post-Quantum Security" 
+    description="Lattice-based signature verification layer makes Brixs the first EVM Rollup future-proofed against Quantum Computers."
+  />
+  <FeatureCard 
+    icon="Network" 
+    title="Unified Liquidity" 
+    description="Native Unified Liquidity Router solves Ethereum L2 fragmentation by bridging states directly."
   />
 </FeatureGrid>
 
 ## Core Ecosystem Pillars
 
 ### 1. The Sovereign Blockchain Node (Testnet)
-Our custom EVM node is built from the ground up to support our L2 architecture. It is currently configured to Chain ID `7777777` with the native gas token `BRIXS`.
+Our custom EVM node (`@ethereumjs/vm`) is highly sophisticated, powered by a Decentralized Sequencer (DPoS) and a ZK-SNARK Prover Engine. It is currently configured in **Testnet** under Chain ID `7777777` with the native gas token `BRIXS`.
 
 ```bash
 # Connect your local environment to the Brixs Testnet
 const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
 ```
 
-### 2. The Zero-Gas Wallet (Account Abstraction)
-Through native EIP-4337 integration, the Brixs Wallet acts as a smart contract. When a user clicks "Swap", our custom RPC intercepts the transaction, and the Paymaster handles the gas fees transparently in the background.
+### 2. MEV Protection & Zero-Gas Wallet
+Through an **Encrypted Mempool**, transactions are hidden before ordering, completely eliminating MEV sandwich attacks. Combined with native Account Abstraction, the Brixs Wallet acts as a smart contract intercepting transactions for seamless gas sponsorship.
 
 ### 3. The Developer CLI
 We are building the ultimate command-line tool for developers. Deploying a smart contract will be as simple as a single command, instantly pushing your logic to the chain.

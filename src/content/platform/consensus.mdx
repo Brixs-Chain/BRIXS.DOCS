@@ -1,9 +1,9 @@
-# Consensus: Brixs Sequencer
+# Consensus: Decentralized Sequencer & ZK-SNARK Prover
 
-The core engine securing the Brixs Network is **Brixs Sequencer**, a highly optimized Directed Acyclic Graph (DAG) consensus protocol.
+The core engine securing the Brixs Network is the **Decentralized Sequencer (DPoS)** combined with our highly advanced **ZK-SNARK Prover Engine**.
 
-<Callout type="warning" title="Architectural Change">
-Brixs Sequencer completely removes the concept of sequential block mining. Transactions are ordered deterministically based on their cryptographic graph references, drastically reducing latency.
+<Callout type="success" title="Testnet Environment">
+The Sequencer is currently running in Testnet. During this phase, validators are tested, and ZK proofs are verified locally before being deployed to the Ethereum L1 Mainnet.
 </Callout>
 
 ## Key Characteristics
@@ -11,47 +11,40 @@ Brixs Sequencer completely removes the concept of sequential block mining. Trans
 <FeatureGrid>
   <FeatureCard 
     icon="Network" 
-    title="Leaderless Architecture" 
-    description="No single node dictates block creation, eliminating bottlenecks and MEV extraction vectors."
-  />
-  <FeatureCard 
-    icon="Timer" 
-    title="Asynchronous Processing" 
-    description="Nodes propose and validate vertices continuously without waiting for discrete block times."
+    title="Decentralized Sequencer (DPoS)" 
+    description="A staking manager allowing anyone to stake BRIXS to propose blocks, eliminating centralized sequencer failure points."
   />
   <FeatureCard 
     icon="ShieldAlert" 
-    title="Byzantine Fault Tolerant" 
-    description="Can sustain 1/3 malicious nodes without halting or forking the network."
+    title="Encrypted Mempool" 
+    description="Protects users against MEV (Miner Extractable Value) sandwich attacks by encrypting transactions before they are ordered."
+  />
+  <FeatureCard 
+    icon="Cpu" 
+    title="ZK-SNARK Prover" 
+    description="Generates mathematical proofs of block execution, making the chain infinitely scalable while inheriting Ethereum's security."
   />
   <FeatureCard 
     icon="Workflow" 
-    title="DAG Structure" 
-    description="Transactions reference previous transactions, forming an interwoven, immutable graph."
+    title="EVM Rollup" 
+    description="Transactions are processed natively via @ethereumjs/vm and batched sequentially into secure rollups."
   />
 </FeatureGrid>
 
-## Deep Dive: How Brixs Sequencer Handles Faults
+## Deep Dive: How the Sequencer Works
 
+### Phase 1: Transaction Encryption
+When a user submits a transaction (e.g. via our Account Abstraction Paymaster), it enters the **Encrypted Mempool**. This guarantees that block proposers cannot front-run or sandwich user trades.
 
-### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+### Phase 2: DPoS Block Proposal
+Validators who have staked `$BRIXS` are selected dynamically to propose the next block. This removes the "single sequencer" risk present in older L2s like Optimism and Arbitrum. The node processes the transactions natively using our optimized `@ethereumjs/vm` gateway.
 
-```bash
-# Initialize the Brixs node
-brixs deploy
-```
-
-### Phase 2: State Merklization
-Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
+### Phase 3: ZK Proof Generation
+Once the block is assembled and state transitions are finalized locally, our Prover Engine generates a zero-knowledge cryptographic proof of the execution. This proof guarantees mathematically that all state changes were valid.
 
 ```javascript
-// Connect to the high-throughput RPC
-const provider = new BrixsProvider("http://localhost:8545");
-const block = await provider.getLatestBlock();
-console.log(`Current Block: ${block.number}`);
+// Connect to the Testnet RPC to observe blocks
+const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+const block = await provider.getBlock("latest");
+console.log(`Current Sequencer Block: ${block.number}`);
 ```
-
-### Phase 3: Consensus & Finality
-Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
-
