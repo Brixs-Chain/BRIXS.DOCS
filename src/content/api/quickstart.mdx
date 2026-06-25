@@ -36,23 +36,7 @@ Returns detailed information about the current consensus epoch, active validator
 
 
 ### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. <Keyword>BrixsVM</Keyword> allocates memory blocks and establishes secure P2P connections via the gossip protocol. This ensures that when <Keyword>Brixs Sequencer</Keyword> begins proposing blocks, there are no I/O bottlenecks. 
+The first phase requires a comprehensive setup of the execution environment. The <Keyword>Brixs Native EVM</Keyword> initializes the state and establishes secure connections with the P2P network. This ensures that when the <Keyword>DPoS Sequencer</Keyword> begins proposing blocks, there are no bottlenecks in transaction ingestion. 
 
-```bash
-# Initialize the Brixs node
-brixs deploy
-```
-
-### Phase 2: State Merklization
-Raw blockchain data is ingested into the <Keyword>Brixs Trie</Keyword>, our lock-free, highly concurrent sparse Merkle tree built over RocksDB. Hot state is cached in RAM to guarantee microsecond retrieval times. 
-
-```javascript
-// Connect to the high-throughput RPC
-const provider = new BrixsProvider("http://localhost:8545");
-const block = await provider.getLatestBlock();
-console.log(`Current Block: ${block.number}`);
-```
-
-### Phase 3: Consensus & Finality
-Transactions are mapped into a DAG. <Keyword>BrixsVM</Keyword> dispatches non-conflicting transactions to the thread pool for parallel execution. Once processed, <Keyword>Brixs Sequencer</Keyword> pipelines the block proposal, achieving Instant Rollup Finality in under 400ms.
+Transactions are ordered securely by the Encrypted Mempool to prevent MEV. The <Keyword>Native EVM</Keyword> processes transactions while the <Keyword>ZK-SNARK Prover Engine</Keyword> generates validity proofs. Once processed, the <Keyword>Sequencer</Keyword> commits the block to the Ethereum L1, achieving Rollup Finality and inheriting Ethereum\'s cryptographic security.
 

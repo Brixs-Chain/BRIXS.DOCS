@@ -4,11 +4,11 @@ import { Database, Zap, Shield, Blocks, CheckCircle2, ArrowRight } from 'lucide-
 
 export function StackVisualizer() {
   const steps = [
-    { icon: <Database className="w-5 h-5 text-black" />, title: "RPC Request Payload" },
-    { icon: <Zap className="w-5 h-5 text-black" />, title: "BrixsVM Parallel Execution" },
-    { icon: <Shield className="w-5 h-5 text-black" />, title: "BrixsBFT Consensus Engine" },
-    { icon: <Blocks className="w-5 h-5 text-black" />, title: "RocksDB State Merklization" },
-    { icon: <CheckCircle2 className="w-5 h-5 text-black" />, title: "Absolute Finality (<400ms)" }
+    { icon: <Database className="w-5 h-5 text-black" />, title: "EIP-4337 RPC Payload" },
+    { icon: <Zap className="w-5 h-5 text-black" />, title: "Native EVM Execution" },
+    { icon: <Shield className="w-5 h-5 text-black" />, title: "DPoS Sequencer Ordering" },
+    { icon: <Blocks className="w-5 h-5 text-black" />, title: "ZK-SNARK Prover Engine" },
+    { icon: <CheckCircle2 className="w-5 h-5 text-black" />, title: "Rollup Finality (~12s)" }
   ];
 
   return (
@@ -24,7 +24,7 @@ export function StackVisualizer() {
           <div className="bg-black text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2">
             <ArrowRight className="w-3 h-3" /> Transaction Flow
           </div>
-          <div className="text-xs text-gray-500 font-mono">TPS: 100,000+</div>
+          <div className="text-xs text-gray-500 font-mono">TPS: ~2,500 (Testnet)</div>
         </div>
 
         <div className="space-y-4">
@@ -50,15 +50,15 @@ export function StackVisualizer() {
         <div className="mt-8 flex items-center justify-between pt-6 border-t border-gray-200">
           <div>
             <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1">Status</div>
-            <div className="text-sm font-mono font-bold text-black">Operational</div>
+            <div className="text-sm font-mono font-bold text-black">Testnet Active</div>
           </div>
           <div>
             <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1">Network</div>
-            <div className="text-sm font-mono font-bold text-black">Brixs Mainnet</div>
+            <div className="text-sm font-mono font-bold text-black">Brixs Testnet</div>
           </div>
           <div>
             <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1">Latency</div>
-            <div className="text-sm font-mono font-bold text-black">~400ms</div>
+            <div className="text-sm font-mono font-bold text-black">~2s</div>
           </div>
         </div>
       </div>

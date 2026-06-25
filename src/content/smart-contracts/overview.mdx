@@ -1,29 +1,27 @@
-# BrixsVM Smart Contracts
+# Smart Contracts on Brixs
 
-**BrixsVM** is a highly customized execution engine. It maintains compatibility with Ethereum's EVM while introducing powerful new primitives for parallel execution and object management.
+**Brixs** is fully EVM compatible. It maintains compatibility with Ethereum's execution environment while introducing powerful new primitives natively bundled via EIP-4337 and ZK proofs.
 
 ## Resource Optimization
 
-The following chart demonstrates how BrixsVM allocates physical hardware resources across its operational threads:
+The following chart demonstrates how the Native EVM allocates resources across its operational tasks:
 
 <AnimatedPieChart 
   dataString='[
-    { "name": "Parallel Execution", "value": 60 },
+    { "name": "EVM Execution", "value": 60 },
     { "name": "State Merklization", "value": 20 },
-    { "name": "Garbage Collection", "value": 10 },
+    { "name": "ZK Proof Generation Prep", "value": 10 },
     { "name": "RPC I/O", "value": 10 }
   ]' 
 />
 
-<Callout type="info" title="Thread Scaling">
-BrixsVM automatically scales execution threads linearly with the underlying hardware, allowing validators with 64+ cores to process thousands of transactions concurrently.
+<Callout type="info" title="EVM Equivalence">
+Brixs provides full EVM equivalence. You can deploy existing Solidity and Vyper contracts without making any changes to your code.
 </Callout>
 
 ## The Architecture Explained
 
-
-- **BrixsVM Execution Engine:** A custom Rust-based VM that pre-analyzes transaction Read/Write sets. It prevents state contention and executes independent transactions concurrently.
-- **Brixs Sequencer Consensus:** A leader-based, Byzantine Fault Tolerant protocol that ensures once a block is committed, it can never be reverted. This Instant Rollup Finality is critical for enterprise use cases.
-- **Object-Centric State:** Unlike Ethereum's account model, Brixs treats everything as an object with a unique ID, owner, and typed data, drastically reducing state bloat via State Rent mechanics.
-- **Enterprise Infrastructure:** High-throughput Go RPCs handle tens of thousands of concurrent reads, while an integrated PostgreSQL Indexing Engine and Apache Kafka Pub/Sub broker stream events in real time.
-
+- **Native EVM Execution:** Standard EVM environment utilizing `@ethereumjs/vm` for maximum compatibility and robust execution.
+- **DPoS Sequencer:** A decentralized sequencer using DPoS, ensuring that anyone can stake BRIXS to propose blocks, preventing centralized points of failure.
+- **ZK-SNARK Prover Engine:** Generates validity proofs of block execution, giving infinite scalability while retaining Ethereum's underlying security guarantees.
+- **Encrypted Mempool:** Protects all user transactions from MEV (Miner Extractable Value) sandwich attacks by encrypting transactions before ordering.
