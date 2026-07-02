@@ -24,8 +24,18 @@ Interacting with the Brixs Network requires a highly secure wallet. Brixs suppor
 ## Integration Pathways
 
 
-### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. The <Keyword>Brixs Native EVM</Keyword> initializes the state and establishes secure connections with the P2P network. This ensures that when the <Keyword>DPoS Sequencer</Keyword> begins proposing blocks, there are no bottlenecks in transaction ingestion. 
+### Connecting to MetaMask (Brixs Testnet)
 
-Transactions are ordered securely by the Encrypted Mempool to prevent MEV. The <Keyword>Native EVM</Keyword> processes transactions while the <Keyword>ZK-SNARK Prover Engine</Keyword> generates validity proofs. Once processed, the <Keyword>Sequencer</Keyword> commits the block to the Ethereum L1, achieving Rollup Finality and inheriting Ethereum\'s cryptographic security.
+You can easily add the Brixs Testnet to your MetaMask wallet to interact with dApps and send $BRIXS. 
 
+To add the network manually, open MetaMask, go to **Add Network > Add a network manually**, and use the following details:
+
+- **Network Name:** Brixs Testnet
+- **New RPC URL:** `https://rpc-testnet.brixs.space`
+- **Chain ID:** `7777777`
+- **Currency Symbol:** `BRIXS`
+- **Block Explorer URL:** `https://brixs-explorer.vercel.app`
+
+<Callout type="info" title="Testnet Faucet">
+Need testnet tokens? Head over to the [Brixs Faucet](https://wallet.brixs.network) to claim testnet $BRIXS and start building.
+</Callout>
