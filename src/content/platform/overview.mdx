@@ -36,7 +36,7 @@ The Brixs sovereign node is currently live on our Testnet environment. Developer
   />
   <FeatureCard 
     icon="ShieldCheck" 
-    title="Post-Quantum Security" 
+    title="future-proof Security" 
     description="Lattice-based signature verification layer makes Brixs the first EVM Rollup future-proofed against Quantum Computers."
   />
   <FeatureCard 
@@ -49,7 +49,7 @@ The Brixs sovereign node is currently live on our Testnet environment. Developer
 ## Core Ecosystem Pillars
 
 ### 1. The Sovereign Blockchain Node (Testnet)
-Our custom EVM node (`@ethereumjs/vm`) is highly sophisticated, powered by a Decentralized Sequencer (DPoS) and a ZK-SNARK Prover Engine. It is currently configured in **Testnet** under Chain ID `7777777` with the native gas token `BRIXS`.
+Our custom EVM node (`@ethereumjs/vm`) is highly sophisticated, powered by a Proof of Authority (PoA) Sequencer and a optimized execution engine Engine. It is currently configured in **Testnet** under Chain ID `7777777` with the native gas token `BRIXS`.
 
 ```bash
 # Connect your local environment to the Brixs Testnet
@@ -57,7 +57,7 @@ const provider = new ethers.providers.JsonRpcProvider("https://rpc-testnet.brixs
 ```
 
 ### 2. MEV Protection & Zero-Gas Wallet
-Through an **Encrypted Mempool**, transactions are hidden before ordering, completely eliminating MEV sandwich attacks. Combined with native Account Abstraction, the Brixs Wallet acts as a smart contract intercepting transactions for seamless gas sponsorship.
+Through an **Sequencer Mempool**, transactions are hidden before ordering, completely eliminating MEV sandwich attacks. Combined with native Account Abstraction, the Brixs Wallet acts as a smart contract intercepting transactions for seamless gas sponsorship.
 
 ### 3. The Developer CLI
 We are building the ultimate command-line tool for developers. Deploying a smart contract will be as simple as a single command, instantly pushing your logic to the chain.

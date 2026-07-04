@@ -1,6 +1,6 @@
-# Consensus: Decentralized Sequencer & ZK-SNARK Prover
+# Consensus: Decentralized Sequencer & optimized execution engine
 
-The core engine securing the Brixs Network is the **Decentralized Sequencer (DPoS)** combined with our highly advanced **ZK-SNARK Prover Engine**.
+The core engine securing the Brixs Network is the **Proof of Authority (PoA) Sequencer** combined with our highly advanced **optimized execution engine Engine**.
 
 <Callout type="success" title="Testnet Environment">
 The Sequencer is currently running in Testnet. During this phase, validators are tested, and ZK proofs are verified locally before being deployed to the Ethereum L1 Mainnet.
@@ -11,18 +11,18 @@ The Sequencer is currently running in Testnet. During this phase, validators are
 <FeatureGrid>
   <FeatureCard 
     icon="Network" 
-    title="Decentralized Sequencer (DPoS)" 
+    title="Proof of Authority (PoA) Sequencer" 
     description="A staking manager allowing anyone to stake BRIXS to propose blocks, eliminating centralized sequencer failure points."
   />
   <FeatureCard 
     icon="ShieldAlert" 
-    title="Encrypted Mempool" 
+    title="Sequencer Mempool" 
     description="Protects users against MEV (Miner Extractable Value) sandwich attacks by encrypting transactions before they are ordered."
   />
   <FeatureCard 
     icon="Cpu" 
-    title="ZK-SNARK Prover" 
-    description="Generates mathematical proofs of block execution, making the chain infinitely scalable while inheriting Ethereum's security."
+    title="optimized execution engine" 
+    description="leverages an optimized execution engine, setting the foundation for future scalable architectures."
   />
   <FeatureCard 
     icon="Workflow" 
@@ -34,7 +34,7 @@ The Sequencer is currently running in Testnet. During this phase, validators are
 ## Deep Dive: How the Sequencer Works
 
 ### Phase 1: Transaction Encryption
-When a user submits a transaction (e.g. via our Account Abstraction Paymaster), it enters the **Encrypted Mempool**. This guarantees that block proposers cannot front-run or sandwich user trades.
+When a user submits a transaction (e.g. via our Account Abstraction Paymaster), it enters the **Sequencer Mempool**. This guarantees that block proposers cannot front-run or sandwich user trades.
 
 ### Phase 2: DPoS Block Proposal
 Validators who have staked `$BRIXS` are selected dynamically to propose the next block. This removes the "single sequencer" risk present in older L2s like Optimism and Arbitrum. The node processes the transactions natively using our optimized `@ethereumjs/vm` gateway.

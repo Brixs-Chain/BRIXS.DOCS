@@ -7,7 +7,7 @@ export function StackVisualizer() {
     { icon: <Database className="w-5 h-5 text-black" />, title: "EIP-4337 RPC Payload" },
     { icon: <Zap className="w-5 h-5 text-black" />, title: "Native EVM Execution" },
     { icon: <Shield className="w-5 h-5 text-black" />, title: "DPoS Sequencer Ordering" },
-    { icon: <Blocks className="w-5 h-5 text-black" />, title: "ZK-SNARK Prover Engine" },
+    { icon: <Blocks className="w-5 h-5 text-black" />, title: "optimized execution engine Engine" },
     { icon: <CheckCircle2 className="w-5 h-5 text-black" />, title: "Rollup Finality (~12s)" }
   ];
 
