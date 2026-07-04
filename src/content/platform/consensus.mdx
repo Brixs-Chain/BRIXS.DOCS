@@ -44,7 +44,7 @@ Once the block is assembled and state transitions are finalized locally, our Pro
 
 ```javascript
 // Connect to the Testnet RPC to observe blocks
-const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+const provider = new ethers.providers.JsonRpcProvider("https://rpc-testnet.brixs.space");
 const block = await provider.getBlock("latest");
 console.log(`Current Sequencer Block: ${block.number}`);
 ```

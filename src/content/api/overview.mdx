@@ -10,7 +10,7 @@ Brixs provides a robust, highly-available **JSON-RPC 2.0** API for interacting w
   <FeatureCard 
     icon="Globe" 
     title="Local Development" 
-    description="http://localhost:8545"
+    description="https://rpc-testnet.brixs.space"
   />
   <FeatureCard 
     icon="FlaskConical" 
@@ -23,8 +23,14 @@ Brixs provides a robust, highly-available **JSON-RPC 2.0** API for interacting w
 The Brixs network is currently running exclusively in a Testnet environment. The Mainnet RPC endpoints will be published closer to our official launch.
 </Callout>
 
-<Callout type="warning" title="Authentication">
-Public endpoints are rate-limited to 100 requests per IP per minute. For production usage, please request a dedicated API key from the developer portal.
+<Callout type="warning" title="Authentication & API Keys">
+Public endpoints are rate-limited to 100 requests per IP per minute. For production usage and higher rate limits, you must generate a dedicated API key.
+
+**Generating an API Key:**
+1. Navigate to the **API Keys** section in the Brixs Developer Explorer (`/tools/api`).
+2. Click **Continue with GitHub** to authenticate your developer account.
+3. Once authenticated, click **Generate New Key** to create a persistent, real API key linked to your GitHub account. 
+4. Include this key as a header `x-api-key: <YOUR_KEY>` in your RPC requests.
 </Callout>
 
 ## Connection Best Practices
@@ -43,7 +49,7 @@ Because Brixs uses a native EVM execution layer (`@ethereumjs/vm`), you can conn
 ```javascript
 // Connect to the Testnet or Local RPC
 const { ethers } = require("ethers");
-const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+const provider = new ethers.providers.JsonRpcProvider("https://rpc-testnet.brixs.space");
 
 async function checkStatus() {
   const blockNumber = await provider.getBlockNumber();

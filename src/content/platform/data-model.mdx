@@ -45,7 +45,7 @@ Raw blockchain data is ingested into our modified state Merkle tree. While it ma
 
 ```javascript
 // Connect to the Testnet RPC and interact natively
-const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+const provider = new ethers.providers.JsonRpcProvider("https://rpc-testnet.brixs.space");
 const code = await provider.getCode("0xYourContractAddress");
 console.log(`Deployed Bytecode: ${code}`);
 ```
