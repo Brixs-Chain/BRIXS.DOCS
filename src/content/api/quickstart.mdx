@@ -36,7 +36,7 @@ Returns detailed information about the current consensus epoch, active validator
 
 
 ### Phase 1: Engine Initialization
-The first phase requires a comprehensive setup of the execution environment. The <Keyword>Brixs Native EVM</Keyword> initializes the state and establishes secure connections with the P2P network. This ensures that when the <Keyword>DPoS Sequencer</Keyword> begins proposing blocks, there are no bottlenecks in transaction ingestion. 
+The first phase requires a comprehensive setup of the execution environment. The <Keyword>Brixs Native EVM</Keyword> initializes the state and establishes secure connections with the P2P network. This ensures that when the <Keyword>PoA Sequencer</Keyword> begins proposing blocks, there are no bottlenecks in transaction ingestion. 
 
-Transactions are ordered securely by the Sequencer Mempool to prevent MEV. The <Keyword>Native EVM</Keyword> processes transactions while the <Keyword>optimized execution engine Engine</Keyword> generates validity proofs. Once processed, the <Keyword>Sequencer</Keyword> commits the block to the Ethereum L1, achieving Rollup Finality and inheriting Ethereum\'s cryptographic security.
+Transactions are ordered securely by the Sequencer Mempool. The <Keyword>Native EVM</Keyword> processes transactions while the <Keyword>optimized execution engine</Keyword> generates block data. Once processed, the <Keyword>Sequencer</Keyword> commits the block, achieving finality and inheriting core cryptographic security.
 
