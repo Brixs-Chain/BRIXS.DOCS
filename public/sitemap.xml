@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Root -->
+  <url><loc>https://docs.brixs.space/</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+
+  <!-- Platform -->
+  <url><loc>https://docs.brixs.space/platform/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/platform/consensus</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/platform/data-model</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/platform/topology</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/platform/status-and-plan</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- API -->
+  <url><loc>https://docs.brixs.space/api/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/api/quickstart</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/api/advanced</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Smart Contracts -->
+  <url><loc>https://docs.brixs.space/smart-contracts/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/smart-contracts/quickstart</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/smart-contracts/advanced</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Infrastructure -->
+  <url><loc>https://docs.brixs.space/infrastructure/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/infrastructure/quickstart</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/infrastructure/advanced</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Cross-Chain -->
+  <url><loc>https://docs.brixs.space/cross-chain/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/cross-chain/quickstart</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/cross-chain/advanced</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Wallets -->
+  <url><loc>https://docs.brixs.space/wallets/overview</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://docs.brixs.space/wallets/custodial/overview</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/wallets/custodial/quickstart</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/wallets/non-custodial/overview</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://docs.brixs.space/wallets/non-custodial/sdk</loc><lastmod>2026-07-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
