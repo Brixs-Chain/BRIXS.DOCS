@@ -25,7 +25,9 @@ export default function TopNav() {
     { name: "Smart Contracts", href: "https://docs.brixs.space/smart-contracts/overview" },
     { name: "Cross-chain", href: "https://docs.brixs.space/cross-chain/overview" },
     { name: "API Reference", href: "https://docs.brixs.space/api/overview" },
-    { name: "Infrastructure", href: "https://docs.brixs.space/infrastructure/overview" }
+    { name: "Infrastructure", href: "https://docs.brixs.space/infrastructure/overview" },
+    { name: "Main Website", href: "https://brixs.space" },
+    { name: "Block Explorer", href: "https://testnet.brixs.space" }
   ];
 
   return (
