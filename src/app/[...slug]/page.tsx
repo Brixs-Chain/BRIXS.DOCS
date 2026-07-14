@@ -3,6 +3,8 @@ import path from 'path';
 import Sidebar from '@/components/Sidebar';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
+import matter from 'gray-matter';
+import { Metadata } from 'next';
 
 // Import our custom MDX components
 import { FeatureGrid } from '@/components/mdx/FeatureGrid';
@@ -79,6 +81,59 @@ function getSidebarConfig(category: string) {
   ];
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug?: string[] }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || [];
+  if (slug.length === 0) return { title: 'Not Found' };
+  
+  const slugPath = slug.join('/');
+  let fileContent = '';
+  
+  try {
+    let filePath = path.join(process.cwd(), 'src', 'content', slugPath + '.mdx');
+    try {
+      fileContent = await fs.readFile(filePath, 'utf8');
+    } catch {
+      filePath = path.join(process.cwd(), 'src', 'content', slugPath + '.md');
+      fileContent = await fs.readFile(filePath, 'utf8');
+    }
+  } catch (e) {
+    return { title: 'Not Found' };
+  }
+
+  const { data: frontmatter } = matter(fileContent);
+  const title = frontmatter.title || slugPath.split('/').pop() || 'Brixs Developer Docs';
+  const description = frontmatter.description || 'The ultimate guide to building on Brixs Chain.';
+  const url = `https://docs.brixs.space/${slugPath}`;
+  const encodedTitle = encodeURIComponent(title);
+  const encodedDescription = encodeURIComponent(description);
+  const ogImageUrl = `https://docs.brixs.space/api/og?title=${encodedTitle}&description=${encodedDescription}`;
+
+  return {
+    title: `${title} | Brixs Developer Docs`,
+    description,
+    openGraph: {
+      title: `${title} | Brixs Developer Docs`,
+      description,
+      url,
+      type: 'website',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImageUrl],
+    }
+  };
+}
+
 export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug || [];
@@ -89,17 +144,19 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
   const category = slug[0];
   const sidebarItems = getSidebarConfig(category);
 
-  let content = "## Page Not Found\nWe couldn't find the documentation for this path.";
+  let fileContent = "## Page Not Found\nWe couldn't find the documentation for this path.";
   try {
     let filePath = path.join(process.cwd(), 'src', 'content', slugPath + '.mdx');
     try {
-      content = await fs.readFile(filePath, 'utf8');
+      fileContent = await fs.readFile(filePath, 'utf8');
     } catch {
       filePath = path.join(process.cwd(), 'src', 'content', slugPath + '.md');
-      content = await fs.readFile(filePath, 'utf8');
+      fileContent = await fs.readFile(filePath, 'utf8');
     }
   } catch (e) {
   }
+
+  const { data: frontmatter, content } = matter(fileContent);
 
   // Parse TOC
   const toc: { level: number, text: string, id: string }[] = [];
