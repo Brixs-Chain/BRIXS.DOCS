@@ -102,7 +102,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   }
 
   const { data: frontmatter } = matter(fileContent);
-  const title = frontmatter.title || slugPath.split('/').pop() || 'Brixs Developer Docs';
+  let baseTitle = frontmatter.title || slug[slug.length - 1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  
+  // Add category context to generic titles
+  if (slug.length > 1) {
+    const category = slug[0].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    const genericTitles = ['overview', 'quickstart', 'advanced', 'introduction', 'architecture'];
+    if (genericTitles.includes(baseTitle.toLowerCase())) {
+      baseTitle = `${category} - ${baseTitle}`;
+    }
+  }
+
+  const title = baseTitle;
   const description = frontmatter.description || 'The ultimate guide to building on Brixs Chain.';
   const url = `https://docs.brixs.space/${slugPath}`;
   const encodedTitle = encodeURIComponent(title);
